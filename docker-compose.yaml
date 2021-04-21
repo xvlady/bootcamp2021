@@ -1,0 +1,46 @@
+version: '3'
+services:
+  db:
+    container_name: pgsql
+    image: postgres:13.1
+    environment:
+      - DEBUG=false
+      - POSTGRES_DB=ha
+      - POSTGRES_USER=ha
+      - POSTGRES_PASSWORD=password2021dljfklkla1!kljf;
+    volumes:
+      - ./postgresql/:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    user: 1000:1000
+  webserver:
+    image: nginx:mainline-alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - web-root:/var/www/html
+      - ./nginx-conf:/etc/nginx/conf.d
+    depends_on:
+      - homeassistant
+  sftp:
+    image: atmoz/sftp
+    container_name: sftp
+    volumes:
+        - ./download:/home/user/upload
+    ports:
+        - "2222:22"
+    command: user:qwlqfhkllazxcloewkrj:1000
+
+volumes:
+  web-root:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./http/
+      o: bind
+
+#networks:
+#  app-network:
+#    driver: bridge
