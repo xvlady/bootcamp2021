@@ -5,7 +5,7 @@ services:
     image: postgres:13.1
     environment:
       - DEBUG=false
-      - POSTGRES_DB=ha
+      - POSTGRES_DB=hadb
       - POSTGRES_USER=ha
       - POSTGRES_PASSWORD=password2021dljfklkla1!kljf;
     volumes:
@@ -32,7 +32,25 @@ services:
     ports:
         - "2222:22"
     command: user:qwlqfhkllazxcloewkrj:1000
-
+  adminer:
+    image: adminer:4.8.0
+    container_name: adminer
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 9000:8080
+    environment:
+      ADMINER_DEFAULT_SERVER: 192.168.1.112
+      ADMINER_DEFAULT_DB_DRIVER: pgsql
+      ADMINER_DEFAULT_DB_NAME: hadb
+#       ADMINER_PASSWORD: password2021dljfklkla1!kljf;
+      ADMINER_USERNAME: ha
+      ADMINER_DESIGN: nette
+      ADMINER_PLUGINS: tables-filter tinymce
+    volumes:
+        - ./adminer/index.php:/var/www/html/index.php
+        
 volumes:
   web-root:
     driver: local
