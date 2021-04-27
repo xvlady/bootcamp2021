@@ -1,8 +1,9 @@
 # bootcamp2021
 Материалы для Bootcamp 2021
 
-## Прилодения
+## Приложения
 
-* postgresql - 5432
+* postgresql - 8432
 * adminer - 9000
-* nginx - 80
+* nginx - 8080
+* sftp - 2222
