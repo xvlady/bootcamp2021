@@ -4,6 +4,6 @@
 ## Приложения
 
 * postgresql - 8432
-* adminer - 9000
+* adminer - 9080
 * nginx - 8080
 * sftp - 2222
